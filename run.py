@@ -29,7 +29,7 @@ def get_args():
                         help="batch size")
     parser.add_argument("--nb_epochs", type=int, default=100,
                         help="number of epochs")
-    parser.add_argument("--lr", type=float, default=0.0005,
+    parser.add_argument("--lr", type=float, default=0.000005,
                         help="learning rate")
     # parser.add_argument("--steps", type=int, default=1500,
     parser.add_argument("--steps", type=int, default=1500,
@@ -58,7 +58,7 @@ def lr_schedule(epoch):
     # Returns
         lr (float32): learning rate
     """
-    lr = 5e-4
+    lr = 5e-6
     if epoch > 80:
         lr *= 1e-3
     elif epoch > 60:
@@ -132,10 +132,6 @@ def main():
                                callbacks=callbacks)
 
     np.savez(os.path.join(checkpoint_path, "history.npz"), history=hist.history)
-
-    scores = model.evaluate(x_test, y_test, verbose=1)
-    print('Test loss:', scores[0])
-    print('Test accuracy:', scores[1])
 
 
 if __name__ == "__main__":
